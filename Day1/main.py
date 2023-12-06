@@ -1,16 +1,20 @@
 def extract_digits(line):
     # Need to find the first and last digits
-    first_digit = next(char for char in line if char.isdigit())
-    last_digit = next(char for char in reversed(line) if char.isdigit())
+    first_digit = next((char for char in line if char.isdigit()), None)
+    last_digit = next((char for char in reversed(line) if char.isdigit()), None)
     # Now to form a digit
-    calibration_value = int(first_digit + last_digit)
-    return calibration_value
+    if first_digit is not None and last_digit is not None:
+        # Combine the digits to form a two-digit number
+        combined = int(first_digit + last_digit)
+        return combined
+    else:
+        return 0
 
 def calculate_total_of_digits(lines):
     # Extract the digits then form numbers from all the read lines
-    calibration_values = [extract_digits(line) for line in lines]
+    all_combined = [extract_digits(line) for line in lines]
     # Calculate the total sum of calibration values
-    total_sum = sum(calibration_values)
+    total_sum = sum(all_combined)
     return total_sum
 
 
