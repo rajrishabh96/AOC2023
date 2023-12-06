@@ -1,16 +1,25 @@
-# This is a sample Python script.
+def extract_digits(line):
+    # Need to find the first and last digits
+    first_digit = next(char for char in line if char.isdigit())
+    last_digit = next(char for char in reversed(line) if char.isdigit())
+    # Now to form a digit
+    calibration_value = int(first_digit + last_digit)
+    return calibration_value
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+def calculate_total_of_digits(lines):
+    # Extract the digits then form numbers from all the read lines
+    calibration_values = [extract_digits(line) for line in lines]
+    # Calculate the total sum of calibration values
+    total_sum = sum(calibration_values)
+    return total_sum
 
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+# Input
+file_path = 'inputs.txt'
+with open(file_path, 'r') as file:
+    lines = file.readlines()
 
-
-# Press the green button in the gutter to run the script.
+# Printing the results
 if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+    total_sum = calculate_total_of_digits(lines)
+    print("Total sum of calibration values:", total_sum)
